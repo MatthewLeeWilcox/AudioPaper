@@ -2,6 +2,8 @@
 
 An NPR-style academic podcast generator. Scrapes journal issues from Springer Nature, parses PDFs with Claude, and produces a single WAV episode with a narrator introducing each article and a reader reading the full text — all running locally or on AWS Bedrock.
 
+![Articles tab](img/Screenshot%202026-04-07%20114536.png)
+
 ---
 
 ## Architecture
@@ -106,12 +108,16 @@ python pdf_reader.py folder ./pdfs/natmachintell-vol8-issue2
 
 ### 4. Producing an Episode
 
-Select articles in the frontend and click **Produce Episode**. The TTS engine uses two Kokoro voices:
+Select articles in the frontend and click **Produce Episode**. The TTS engine uses two Kokoro voices — choose them on the Voices tab before producing:
+
+![Voices tab](img/Screenshot%202026-04-07%20114805.png)
 
 - **Narrator** — introduces each article by title and summary
 - **Reader** — reads the full article body
 
-Claude also writes a fresh intro and outro for each episode. The output is a single WAV file with a chapter timestamp file saved alongside it.
+Claude also writes a fresh intro and outro for each episode. The output is a single WAV file with a chapter timestamp file saved alongside it. Produced episodes appear in the Episodes tab with chapter markers:
+
+![Episodes tab](img/Screenshot%202026-04-07%20115144.png)
 
 Available voices:
 
@@ -152,11 +158,3 @@ Available voices:
 | GET | `/episodes` | List produced episodes |
 | GET | `/audio/{filename}` | Stream a WAV file |
 
----
-
-## Duplicate Detection
-
-Articles are deduplicated at two points:
-
-1. **Before download** — the scraper checks `article_url` against the DB and skips articles already recorded
-2. **Before DB insert** — `insert_article` checks for matching `title + journal_name` and skips if found
