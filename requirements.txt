@@ -1,0 +1,26 @@
+# Newscaster — Python dependencies
+
+# ── Core scraping ─────────────────────────────────────────────────────────────
+playwright>=1.44.0          # headless browser (run: playwright install chromium)
+
+# ── AI / LLM ─────────────────────────────────────────────────────────────────
+anthropic>=0.28.0           # Direct API
+boto3>=1.34.0               # AWS Bedrock (optional — only if API_PROVIDER=bedrock)
+
+# ── API Server ────────────────────────────────────────────────────────────────
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+python-multipart>=0.0.9     # Required by FastAPI for file/form handling
+
+# ── TTS ───────────────────────────────────────────────────────────────────────
+tqdm>=4.66.0                # Progress bars
+kokoro>=0.9.0               # Local neural TTS engine (tts.py)
+soundfile>=0.12.0           # Audio file I/O
+numpy>=1.26.0               # Audio array processing
+
+# ── PDF Ingestion ─────────────────────────────────────────────────────────────
+pypdf>=4.0.0                # PDF text extraction (pdf_reader.py)
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.0.0        # Load .env for API keys
